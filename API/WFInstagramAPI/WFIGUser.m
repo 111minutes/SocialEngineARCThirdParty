@@ -31,9 +31,9 @@ followedByCount, followsCount, mediaCount;
         user = [[self alloc] initWithJSONFragment:data];
         user->_isCurrentUser = [@"self" isEqual:userId];
     } else {
-        if (error) {
-            *error = [response error];
-        }
+//        if (error) {
+//            *error = [response error];
+//        }
         WFIGDLOG (@"response error: %@", [response error]);
         WFIGDLOG (@"response body: %@", [response parsedBody]);
     }
