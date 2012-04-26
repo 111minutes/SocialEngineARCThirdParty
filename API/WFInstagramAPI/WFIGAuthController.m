@@ -41,6 +41,10 @@ Class initialViewClass = NULL;
     return self;
 }
 
+- (void) dealloc{
+    _webView.delegate = nil;
+}
+
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
