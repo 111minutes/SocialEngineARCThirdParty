@@ -13,6 +13,7 @@ NSString *const kWFIGErrorDomain = @"IGErrorDomain";
 @implementation WFIGResponse
 
 @synthesize rawBody = _rawBody, headers = _headers, statusCode = _statusCode, error = _error;
+@synthesize parsedBody = _parsedBody;
 
 + (id)responseFrom:(NSHTTPURLResponse *)response withBody:(NSData *)data andError:(NSError *)aError {
     return [[self alloc] initFrom:response withBody:data andError:aError];
@@ -98,7 +99,7 @@ NSString *const kWFIGErrorDomain = @"IGErrorDomain";
 - (NSDictionary *)parsedBody {
     if (!_parsedBody) {
         NSError *parseError = nil;
-        _parsedBody = [NSJSONSerialization JSONObjectWithData:self.rawBody options: NSJSONReadingMutableContainers error: &parseError];
+        self.parsedBody = [NSJSONSerialization JSONObjectWithData:self.rawBody options: NSJSONReadingMutableContainers error: &parseError];
         NSLog(@"_parsedBody %@", _parsedBody);
         if (!_parsedBody && parseError) {
             WFIGDLOG (@"ERROR parsing response body: %@", parseError);
