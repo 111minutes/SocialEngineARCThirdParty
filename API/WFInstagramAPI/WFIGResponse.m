@@ -98,7 +98,8 @@ NSString *const kWFIGErrorDomain = @"IGErrorDomain";
 - (NSDictionary *)parsedBody {
     if (!_parsedBody) {
         NSError *parseError = nil;
-        _parsedBody = [[WFInstagramAPI serializer] deserializeJSON:self.rawBody error:&parseError];
+        _parsedBody = [NSJSONSerialization JSONObjectWithData:self.rawBody options: NSJSONReadingMutableContainers error: &parseError];
+        NSLog(@"_parsedBody %@", _parsedBody);
         if (!_parsedBody && parseError) {
             WFIGDLOG (@"ERROR parsing response body: %@", parseError);
             WFIGDLOG (@"original body was: %@", [self bodyAsString]);
